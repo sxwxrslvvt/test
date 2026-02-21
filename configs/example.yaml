@@ -1,0 +1,25 @@
+disclaimer_acknowledged: true
+targets:
+  - "https://example.com"
+  - "https://example.org"
+concurrency: 3
+requests_per_second: 2
+timeout_seconds: 15
+obey_robots_txt: true
+use_browser_fallback: true
+browser_wait_selector: "body"
+retry:
+  max_attempts: 4
+  base_backoff_seconds: 0.5
+  max_backoff_seconds: 8
+proxies:
+  - "http://127.0.0.1:8080"
+  - "socks5://127.0.0.1:9050"
+headers:
+  Accept: "text/html,application/xhtml+xml"
+  Accept-Language: "en-US,en;q=0.9"
+auth_token: null
+referers:
+  - "https://www.google.com/"
+origins:
+  - "https://example.com"
