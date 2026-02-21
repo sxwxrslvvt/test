@@ -1,0 +1,23 @@
+disclaimer_acknowledged: true
+targets:
+  - "https://httpbin.org/get"
+  - "https://example.com"
+concurrency: 2
+requests_per_second: 1
+timeout_seconds: 15
+obey_robots_txt: true
+use_browser_fallback: true
+browser_wait_selector: "body"
+retry:
+  max_attempts: 3
+  base_backoff_seconds: 0.5
+  max_backoff_seconds: 4
+proxies: []
+headers:
+  Accept: "text/html,application/xhtml+xml"
+  Accept-Language: "en-US,en;q=0.9"
+auth_token: null
+referers:
+  - "https://www.google.com/"
+origins:
+  - "https://example.com"
