@@ -38,10 +38,10 @@ requirements.txt
 - **Dynamic content:** explicit waits (`wait_for_selector` / `networkidle`).
 - **CAPTCHA strategy:** pluggable interface + safe manual solver stub.
 
-## 3) Install
+## 3) Quick start (Linux/macOS)
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 python -m playwright install chromium
@@ -53,7 +53,32 @@ python -m playwright install chromium
 PYTHONPATH=src python -m security_scanner.interfaces.cli --config configs/example.yaml
 ```
 
-## 5) Precautions
+Output is JSON list of results per URL (status code, final URL, response time, headers, errors).
+
+## 5) Как запустить и проверить на сайте безопасно
+
+> Важно: используйте только ваши домены или ресурсы с письменным разрешением.
+
+### Вариант A (безопасная базовая проверка)
+1. Оставьте `configs/example.yaml` как есть (там уже спокойные цели: `https://httpbin.org/get` и `https://example.com`).
+2. Проверьте, что лимиты низкие:
+   - `requests_per_second: 1`
+   - `concurrency: 2`
+3. Запустите команду из раздела **Run**.
+4. Убедитесь, что в выводе есть `status_code` (например, `200`) и нет критических ошибок в `errors`.
+
+### Вариант B (ваш тестовый стенд)
+1. Поднимите собственный тестовый сайт (например, staging).
+2. Замените `targets` в YAML на ваш URL.
+3. Для строгой этики оставьте `obey_robots_txt: true`.
+4. Если тест согласован и нужен специальный сценарий, можно временно отключить robots-проверку только для вашего стенда.
+
+### Что делать, если сразу 403/429
+- Добавьте рабочие прокси в `proxies`.
+- Уменьшите `requests_per_second` и `concurrency`.
+- Проверьте, не блокирует ли WAF user-agent/гео/IP.
+
+## 6) Precautions
 
 1. Use only for assets you own or have written authorization to test.
 2. Keep `requests_per_second` low and `concurrency` conservative.
